@@ -8,12 +8,15 @@ gem 'rufus-scheduler', '~> 3.0.8'
 gem 'best_in_place'
 gem 'safe_attributes', '~>1.0.10'
 # Use postgresql as the database for Active Record
-gem 'pg'
+#gem 'pg'
 #gem 'sqlite3'
 gem "heroku"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
-
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
+end
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
