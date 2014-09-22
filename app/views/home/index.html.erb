@@ -1,0 +1,48 @@
+<div class="wrapper-box">
+  <div class="main-wrapper">
+    <!--Header Part End-->
+    <div id="container">
+      <div id="content">
+        <!-- Nivo Slider Start -->
+        <section class="slider-wrapper">
+          <div id="slideshow" class="nivoSlider">
+            <% dir_name="app/assets/images/slider_images" %>
+            <% if File.exist?(dir_name) %>
+                <% @slider_images=get_slider_images %>
+                <% if @slider_images && @slider_images.count>0 %>
+                    <% @slider_images.each do |slider_image| %>
+                        <a class="nivo-imageLink" href="#"><%= image_tag("slider_images/#{slider_image}") %></a>
+                    <% end %>
+                <% else %>
+                    <a class="nivo-imageLink" href="#"><img src="/assetslogo.png"/></a>
+                <% end %>
+            <% end %>
+          </div>
+
+        </section>
+        <script type="text/javascript"><!--
+        $('#slideshow').nivoSlider();
+        /* $(document).ready(function() {
+
+         $('#slideshow').nivoSlider();
+         });*/
+        --></script>
+        <!-- Nivo Slider end -->
+        <!-- Welcom Text Start-->
+        <div class="welcome">Welcome to Polishop</div>
+        <p><strong>Polishop</strong> Premium Responsive HTML Template. Polishop is a clean and Fully Responsive to use
+          the
+          template for every kind of eCommerce online shop. Great Looks on Desktops, Tablets and Mobiles. Well
+          Documented.
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+          standard dummy text ever since the 1500s, <a href="#">BUY THEME</a>.</p>
+        <!-- Welcom Text End-->
+        <%= render 'layouts/featured_products' %>
+        <%= render 'layouts/products_tabs' %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

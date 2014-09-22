@@ -1,0 +1,8 @@
+
+<%if @check==0%>
+$("#sign_up").html("<%= escape_javascript(render "verify_email") %>");
+<%elsif @check==1%>
+$("#sign_up").html("<%= escape_javascript(render "new") %>");
+<%else%>
+$("#sign_up").html("<%= escape_javascript(render "first_product") %>");
+<%end%>

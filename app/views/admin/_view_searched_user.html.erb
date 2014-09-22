@@ -1,0 +1,37 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <h1>Choose Action for <%= @searched_user.username %> </h1>
+
+  <div class="backs">
+    <a href=<%= admin_user_expenses_path %>>
+      <div class="button_bases b1_skewed_slide_in">
+        <div>User Expenses</div>
+        <div></div>
+        <div>User Expenses</div>
+      </div>
+    </a>
+  </div>
+  <div class="backs">
+    <a href=<%= admin_reset_user_password_path %>>
+      <div class="button_bases b1_skewed_slide_in">
+        <div>Reset Password</div>
+        <div></div>
+        <div>Reset Password</div>
+      </div>
+    </a>
+  </div>
+  <div class="backs">
+    <%= link_to admin_edit_searched_user_path, method: "post", remote: true do %>
+        <div class="button_bases b1_skewed_slide_in">
+          <div>Edit user info</div>
+          <div></div>
+          <div>Edit user info</div>
+        </div>
+    <% end %>
+  </div>
+</center>

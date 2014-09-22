@@ -1,0 +1,91 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @new_admin && @new_admin.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @new_admin.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @new_admin.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Create a new admin</h1>
+  <%= form_for @new_admin, url: {controller: "admin", action: "create"} do |f| %>
+
+      <div class="content">
+        <table>
+          <tbody>
+          <tr>
+            <td><h3>User Name</h3></td>
+            <td> : <%= f.text_field :username %> </td>
+          </tr>
+          <tr>
+
+            <td><h3>Password</h3></td>
+            <td> : <%= f.password_field :password %> </td>
+          </tr>
+          <tr>
+            <td><h3>Confirm Password</h3></td>
+            <td> : <%= f.password_field :password_confirmation %> </td>
+
+          </tr>
+          <tr>
+            <td><h3>Email</h3></td>
+            <td> : <%= f.text_field :email %> </td>
+
+          </tr>
+          <tr>
+            <td><h3>First Name</h3></td>
+            <td> : <%= f.text_field :first_name %> </td>
+
+          </tr>
+          <tr>
+            <td><h3>Last Name</h3></td>
+            <td> : <%= f.text_field :last_name %> </td>
+
+          </tr>
+          <tr>
+            <td><h3>Adress</h3></td>
+            <td> : <%= f.text_area :address, :cols => "5", :rows => "5" %> </td>
+
+          </tr>
+          <tr>
+            <td><h3>Mobile</h3></td>
+            <td> : <%= f.number_field :mobile %> </td>
+
+          </tr>
+
+          <tr>
+            <td><h3>Priveleges</h3></td>
+            <td> :
+              <table>
+                <tr>
+                  <td> Can reset users passwords : <%= f.check_box :can_reset_password %> </td>
+                </tr>
+                <tr>
+                  <td> Can generate codes : <%= f.check_box :can_generate_code %> </td>
+                </tr>
+                <tr>
+                  <td> Can add products : <%= f.check_box :can_add_product %> </td>
+                </tr>
+                <tr>
+                  <td> Can add places : <%= f.check_box :can_add_place %> </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <br/>
+              <%= f.submit 'Create New Admin', :class => "button" %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+  <% end %>
+</center>

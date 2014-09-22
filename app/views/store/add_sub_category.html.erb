@@ -1,0 +1,45 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @sub_category && @sub_category.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @sub_category.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @sub_category.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Add Sub category</h1>
+  <%= form_for @sub_category, url: {action: "create_sub_category"} do |f| %>
+      <table>
+        <tr>
+          <td><h3>Sub category name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td><h3>Category name </h3></td>
+          <td>
+            :<%= f.collection_select :category_id, Category.order(:name), :id, :name %>
+
+          </td>
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td><h3>Choose an image </h3></td>
+          <td>
+            : <%= f.file_field :sub_category_image, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+        </tr>
+      </table>
+      <br/>
+      <%= f.submit "Create sub Category", :class => "button" %>
+
+  <% end %>
+</center>

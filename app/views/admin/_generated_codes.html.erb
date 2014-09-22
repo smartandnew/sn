@@ -1,0 +1,46 @@
+
+<h1>Used Codes</h1>
+<table id="fourth-box-table">
+  <tr>
+    <th>Code</th>
+    <th>Is valid</th>
+  </tr>
+  <% @used_codes.each do |code| %>
+      <tr>
+        <td><%= code.code %></td>
+        <td><%= code.valid %></td>
+      </tr>
+  <% end %>
+</table>
+<br/>
+<h1>Un used Codes</h1>
+<table id="fourth-box-table">
+  <tr>
+    <th>Code</th>
+    <th>Is valid</th>
+  </tr>
+  <% @unused_codes.each do |code| %>
+      <tr>
+        <td><%= code.code %></td>
+        <td><%= code.valid %></td>
+      </tr>
+  <% end %>
+</table>
+<br/>
+<% flash.each do |key, value| %>
+    <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+    <div id=<%= id %>>
+      <h2><%= value %></h2>
+    </div>
+<% end %>
+<%= form_for @current_admin, url: {action: "generate_code"}, :remote => true do |f| %>
+    <table>
+      <tr>
+        <td><h3>password </h3></td>
+        <td>: <%= f.password_field :conf_pass_for_gen_code %></td>
+        <td> <%= f.submit "generate code", :class => "button",
+                          data: {confirm: "Do you want to generate code ?"} %></td>
+      </tr>
+    </table>
+<% end %>
+<br/>

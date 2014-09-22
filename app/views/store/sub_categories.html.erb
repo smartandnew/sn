@@ -1,0 +1,76 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @selected_category && @selected_category.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_category.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_category.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1><%= @to_be_updated_category.name %></h1>
+  <%= form_for @selected_category, url: {action: "update_category_name"} do |f| %>
+      <table>
+        <tr>
+          <td><h3>Category name </h3></td>
+          <td> : <%= f.text_field :name %>
+          </td>
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <% if @category_images %>
+              <td><h3>Category image </h3></td>
+              <td>
+                : <%= image_tag("data/categories/#{@selected_category.id}/#{@category_images[0]}", :size => "250x200") %>
+                <h3>Change image<%= f.file_field :category_image %>
+                  <h3>
+              </td>
+          <% else %>
+              <td><h3>Choose an image </h3></td>
+              <td> : <%= f.file_field :category_image %> </td>
+          <% end %>
+
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td> &nbsp;&nbsp;  <%= f.submit "Update Category", :class => "button" %></td>
+        </tr>
+      </table>
+
+
+  <% end %>
+  <br/>
+</center>
+<% if @sub_categories.count>0 %>
+
+    <h1>Select sub category</h1>
+    <% @sub_categories.each do |sub_category| %>
+        <div class="backs">
+          <%= link_to "/admin_store_products?sub_category_id=#{sub_category.id}", {:controller => "store", :action => "products", :sub_category_id => sub_category.id} do %>
+              <div class="button_bases b1_skewed_slide_in">
+                <div><%= sub_category.name %></div>
+                <div></div>
+                <div><%= sub_category.name %></div>
+              </div>
+          <% end %>
+        </div>
+
+    <% end %>
+    <!--Pagination Part Start-->
+    <div class="flickr_pagination">
+      <%= will_paginate @sub_categories %>
+    </div>
+    <!--Pagination Part End-->
+<% else %>
+    <h1>No subcategories found</h1>
+<% end %>
+

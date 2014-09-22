@@ -1,0 +1,37 @@
+<div align="center">
+  <%= link_to  "Add a new product " , add_product_path,:class=>"button" %>
+  <br/><br/>
+  <h1>All products</h1>
+  <style type="text/css">
+      table.myTable {
+          border-collapse: collapse;
+      }
+
+      table.myTable td, table.myTable th {
+          border: 1px solid black;
+          padding: 10px;
+          font-size: 18px;
+          text-align: center;
+      }
+  </style>
+  <table class="myTable">
+    <tr>
+      <th>Product name</th>
+      <th> Quantity</th>
+      <th> Price</th>
+      <th> Real price</th>
+      <th> Edit Product</th>
+    </tr>
+    <% @all_products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.quantity %></td>
+          <td><%= product.price %></td>
+          <td><%= product.real_price %></td>
+          <td>
+              <%= link_to  "Edit product" ,"/admin_store_selected_product?product_id=#{product.id}" ,:class=>"button" %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+</div>

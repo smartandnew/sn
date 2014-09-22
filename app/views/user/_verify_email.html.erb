@@ -1,0 +1,32 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <h1>Verify email</h1>
+
+  <div id="content" align="center">
+    <%= form_tag 'verify_email_create', :remote => true %>
+    <div class="content">
+      <table class="form">
+        <tbody>
+        <tr>
+          <td>Payied Code :</td>
+          <td><%= text_field :code, :code %></td>
+
+        </tr>
+        <tr>
+          <td> Verify Code:</td>
+          <td> <%= text_field :email_code, :code %> </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= submit_tag 'Verify', :class => "button" %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</center>

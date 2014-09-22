@@ -1,0 +1,161 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+</center>
+<h1>Welcome <%= @admin.username %>  </h1>
+<div id="all_boxes">
+
+  <% if @amdin_is_super %>
+      <div class="back">
+        <a href=<%= admin_signup_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div>Create New Admin</div>
+            <div>Create New Admin</div>
+            <div>Create New Admin</div>
+            <div>Create New Admin</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+  <% if @amdin_is_super %>
+      <div class="back">
+        <a href=<%= admin_actions_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Admins</div>
+            <div>Admins</div>
+            <div>Admins</div>
+            <div>Admins</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+  <% if @amdin_is_super ||@admin_can_reset_password %>
+      <div class="back">
+        <a href=<%= admin_search_users_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Users</div>
+            <div> Users</div>
+            <div> Users</div>
+            <div> Users</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+  <% if @amdin_is_super ||@admin_can_add_product %>
+      <div class="back">
+        <a href=<%= store_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Store</div>
+            <div> Store</div>
+            <div> Store</div>
+            <div> Store</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+
+  <% if @amdin_is_super || @admin_can_add_place %>
+      <div class="back">
+        <a href=<%= place_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div>Places</div>
+            <div>Places</div>
+            <div>Places</div>
+            <div>Places</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+
+  <% if @amdin_is_super || @admin_can_generate_codes %>
+      <div class="back">
+        <a href=<%= admin_codes_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Generate code</div>
+            <div> Generate code</div>
+            <div> Generate code</div>
+            <div> Generate code</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+  <% if @amdin_is_super || @admin_can_add_product %>
+      <div class="back">
+        <a href=<%= store_all_products_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> View products</div>
+            <div> View products</div>
+            <div> View products</div>
+            <div> View products</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+
+  <% if @amdin_is_super %>
+      <div class="back">
+        <a href=<%= slider_images_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Slider Images</div>
+            <div> Slider Images</div>
+            <div> Slider Images</div>
+            <div> Slider Images</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+
+  <% if @amdin_is_super %>
+      <div class="back">
+        <a href=<%= calculations_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Update Calculaions</div>
+            <div> Update Calculaions</div>
+            <div> Update Calculaions</div>
+            <div> Update Calculaions</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+
+  <% if @amdin_is_super || @admin_can_add_product %>
+      <div class="back">
+        <a href=  <%= users_first_products_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Completed first products</div>
+            <div> Completed first products</div>
+            <div> Completed first products</div>
+            <div> Completed first products</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+
+  <% if @amdin_is_super || @admin_can_add_product %>
+      <div class="back">
+        <a href=  <%= products_orders_path %>>
+          <div class="button_base b_3d_double_roll">
+            <div> Confirm products order</div>
+            <div> Confirm products order</div>
+            <div> Confirm products order</div>
+            <div> Confirm products order</div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+</div>
+
+
+

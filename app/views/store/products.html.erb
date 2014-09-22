@@ -1,0 +1,72 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @selected_sub_category && @selected_sub_category.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_sub_category.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_sub_category.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Update <%= @selected_sub_category.name %></h1>
+  <%= form_for @selected_sub_category, url: {action: "update_sub_category_name"} do |f| %>
+      <table>
+        <tr>
+          <td><h3>Sub category name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+        </tr>
+        <tr>
+          <td><h3>Category name </h3></td>
+          <td>
+            :<%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
+
+          </td>
+        </tr>
+        <tr>
+          <% if @sub_category_images %>
+              <td><h3>Sub_category image </h3></td>
+              <td>
+                : <%= image_tag("data/sub_categories/#{@selected_sub_category.id}/#{@sub_category_images[0]}", :size => "250x200") %>
+                <h3>Change image<%= f.file_field :sub_category_image %>
+                  <h3>
+              </td>
+          <% else %>
+              <td><h3>Choose an image </h3></td>
+              <td> : <%= f.file_field :sub_category_image %> </td>
+          <% end %>
+
+        </tr>
+      </table>
+      <br/>
+      <%= f.submit "Update Subcategoy ", :class => "button" %>
+      <br/><br/>
+  <% end %>
+</center>
+<% if @products.count>0 %>
+    <h1> Products of <%= @selected_sub_category.name %> </h1>
+    <% @products.each do |product| %>
+        <div class="backs">
+          <%= link_to "/admin_store_selected_product?product_id=#{product.id}", {:controller => "store", :action => "product", :product_id => product.id} do %>
+              <div class="button_bases b1_skewed_slide_in">
+                <div><%= product.name %></div>
+                <div></div>
+                <div><%= product.name %></div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+    <!--Pagination Part Start-->
+    <div class="flickr_pagination">
+      <%= will_paginate @products %>
+    </div>
+    <!--Pagination Part End-->
+<% else %>
+
+    <h1>No Products for <%= @selected_sub_category.name %> </h1>
+<% end %>
+
+

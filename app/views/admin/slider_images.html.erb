@@ -1,0 +1,76 @@
+<%= form_for @slider_image , url: {action: "update_slider_images"} do |f| %>
+    
+    <div >
+      <% if @slider_images && @slider_images.count>0 %>
+          <div class="photo_">
+            <div class="photo_">
+              <% @slider_images.each do |image| %>
+
+                  <div class="photo_">
+                    <%= image_tag("slider_images/#{image}", :size => "320x200") %>
+
+                    <% if image.include? 'slider_image_1' %>
+                        <div> <b>Change Image</b> : <%= f.file_field :slider_image_1 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%> </div>
+                    <% elsif image.include? 'slider_image_2' %>
+                        <div> <b>Change Image</b> : <%= f.file_field :slider_image_2 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%> </div>
+                    <% elsif image.include? 'slider_image_3' %>
+                        <div> <b>Change Image</b> : <%= f.file_field :slider_image_3 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%> </div>
+                    <% elsif image.include? 'slider_image_4' %>
+                        <div>  <b>Change Image</b> : <%= f.file_field :slider_image_4 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%> </div>
+                    <% elsif image.include? 'slider_image_5' %>
+                        <div> <b>Change Image</b> : <%= f.file_field :slider_image_5 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%> </div>
+                    <% end %>
+                    <div>&nbsp;&nbsp;&nbsp;</div>
+                  </div>
+
+              <% end %>
+            </div>
+          <% if @slider_images.count < 5 %>
+              <% allowed_upload= 5 - @slider_images.count %>
+              <% index= @slider_images.count+1 %>
+              <% if index==2 %>
+                  inder=2
+                  <div class="done_button">
+                    <hr/><br/>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_2 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_3 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_4 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_5 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                  </div>
+              <% elsif index==3 %>
+                  <div class="done_button">
+                    <hr/><br/>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_3 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_4 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_5 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                  </div>
+              <% elsif index==4 %>
+                  <div class="done_button">
+                    <hr/><br/>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_4 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_5 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+                  </div>
+              <% elsif index==5 %>
+                  <div class="done_button">
+                    <hr/><br/>
+                    <b>Select an image</b> : <%= f.file_field :slider_image_5 %></br>
+                  </div>
+              <% end %>
+
+          <% end %>
+      <% else %>
+          <div class="done_button">
+            <b>Select an image</b> : <%= f.file_field :slider_image_1 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+            <b>Select an image</b> : <%= f.file_field :slider_image_2 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+            <b>Select an image</b> : <%= f.file_field :slider_image_3, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %></br>
+            <b>Select an image</b> : <%= f.file_field :slider_image_4, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %></br>
+            <b>Select an image</b> : <%= f.file_field :slider_image_5 , accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG'%></br>
+          </div>
+      <% end %>
+      <div class="done_button">
+        <br/>
+        <%= f.submit "Save changes", :class => "button" %>
+        <br/><br/>
+      </div>
+    </div>
+<% end %>

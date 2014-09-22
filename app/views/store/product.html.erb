@@ -1,0 +1,133 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @selected_product && @selected_product.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_product.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_product.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Update Product</h1>
+  <%= form_for @selected_product, url: {action: "update_product"} do |f| %>
+      <table>
+        <tr>
+          <td width="120px"><h3>Product name </h3></td>
+          <td>: <%= f.text_field :name %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Sub_category </h3></td>
+          <td> : <%= f.grouped_collection_select :sub_category_id, Category.order(:name),
+                                                 :sub_categories, :name, :id, :name, include_blank: true %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Price </h3></td>
+          <td> :  <%= f.number_field :price, in: 1.0..1000000.0 %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Description </h3></td>
+          <td> : <%= f.text_area :description, :cols => "30", :rows => "5" %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Quantity </h3></td>
+          <td> : <%= f.number_field :quantity, in: 0.0..1000000.0 %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Real price </h3></td>
+          <td>: <%= f.number_field :real_price, in: 1.0..1000000.0 %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Offer </h3></td>
+          <td> : <%= f.number_field :offer, in: 1.0..50.0 %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Offer expired date </h3></td>
+          <td> : <%= f.date_field :offer_expired_date %> </span> </h3></td>
+        </tr>
+        <tr>
+          <td><h3>Is best seller </h3></td>
+          <td> : <%= f.check_box :is_best_seller %>  </td>
+        </tr>
+        <tr>
+          <td><h3>Is featured </h3></td>
+          <td> : <%= f.check_box :is_featured %>  </td>
+        </tr>
+
+        <% if @selected_product_images && !@selected_product_images.empty? %>
+            <br/>
+            <br/>
+            <% @selected_product_images.each do |image| %>
+                <tr>
+                  <td><h3>Product image </h3></td>
+                  <% if image.include? '1' %>
+                      <td> : <%= image_tag("data/products/#{@selected_product.id}/#{image}", :size => "300x200") %>
+                        <h3>Select another File
+                          : <%= f.file_field :datafile1, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %>
+                          <h3><br/>
+                      </td>
+                  <% elsif image.include? '2.jpg' %>
+                      <td> : <%= image_tag("data/products/#{@selected_product.id}/#{image}", :size => "300x200") %>
+                        <h3>Select another File
+                          : <%= f.file_field :datafile2, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %>
+                          <h3><br/>
+                      </td>
+                  <% elsif image.include? '3.jpg' %>
+                      <td> : <%= image_tag("data/products/#{@selected_product.id}/#{image}", :size => "300x200") %>
+                        <h3>Select another File
+                          : <%= f.file_field :datafile3, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %>
+                          <h3><br/>
+                      </td>
+                  <% end %>
+                </tr>
+
+            <% end %>
+            <% if @selected_product_images.count < 3 %>
+                <% allowed_upload= 3 - @selected_product_images.count %>
+                <% index= @selected_product_images.count+1 %>
+                <% for i in 1..allowed_upload %>
+                    <% if index==2 %>
+                        <tr>
+                          <td><h3>Select File </h3></td>
+                          <td>: <%= f.file_field :datafile2, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+                        </tr>
+                    <% else %>
+                        <td><h3>Select File </h3></td>
+                        <td>: <%= f.file_field :datafile3, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+                    <% end %>
+
+                <% end %>
+            <% end %>
+        <% else %>
+            <table>
+              <tr>
+                <td width="120px"><h3>Select File </h3></td>
+                <td>: <%= f.file_field :datafile1, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+              </tr>
+              <tr>
+                <td><h3>Select File </h3></td>
+                <td>
+                  : <%= f.file_field :datafile2, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+              </tr>
+              <tr>
+                <td><h3>Select File </h3></td>
+                <td>
+                  : <%= f.file_field :datafile3, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+              </tr>
+            </table>
+        <% end %>
+      </table>
+      <br/>
+      <%= f.submit "Update Product", :class => "button" %>
+  <% end %>
+</center>

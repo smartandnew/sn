@@ -1,0 +1,57 @@
+<center>
+	<% flash.each do |key, value| %>
+	<% id= (key=="success") ? "success_messages" : "error_explanation" %>
+	<div id=<%= id %>>
+		<h2><%= value %></h2>
+	</div>
+	<% end %>
+</center>
+<div class="wrapper-box">
+
+	<div class="main-wrapper">
+		<!--Header Part Start-->
+		<!--Header Part End-->
+		<div id="container">
+			<div id="column-left">
+				<%= render 'layouts/left_column'%>
+			</div>
+			<!--Middle Part Start-->
+			<div id="content">
+				<!--Breadcrumb Part Start-->
+				<div class="breadcrumb">
+					<%= link_to "home", root_path %>
+				</div>
+				<!--Breadcrumb Part End-->
+				<h1>Categories </h1>
+				<hr/>
+				<br/>
+				<!--Product Grid Start-->
+				<div class="product-grid">
+
+					<% @categories.each do |category| %>
+					<div>
+						<% if File.exist?("app/assets/images/data/categories/#{category[ "id"]}") %>
+						<% selected_category_image=get_category_images(category[ "id"]) %>
+						<%= link_to image_tag("data/categories/#{category[ "id"]}/#{selected_category_image[0]}", :size => "200x150"), {:controller => "application", :action => "store_sub_categories", :category_id => category[ "id"]} %>
+
+						<% else %>
+						<%= link_to image_tag("/assets/logo.png", :size =>"200x150"), {:controller => "application", :action => "store_sub_categories", :category_id => category[ "id"]} %>
+						<% end %>
+						<div class="name">
+							<b> <%= link_to category[ "name"], {:controller => "application", :action => "store_sub_categories", :category_id => category[ "id"]} %></b>
+						</div>
+					</div>
+					<% end %>
+
+				</div>
+				<!--Product Grid End-->
+				<div class="flickr_pagination">
+					<%= will_paginate @categories %>
+				</div>
+				<!--Pagination Part End-->
+			</div>
+			<!--Middle Part End-->
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,82 @@
+<!--Left Part-->
+<div id="column-left">
+	<div class="box">
+		<div class="box-heading">
+			Information
+		</div>
+		<div class="box-content">
+			<ul class="list-item">
+				<li>
+					<%= link_to "About Us",about_us_path %>
+				</li>
+				<li>
+					<%= link_to "Delivery Information",delivery_information_path %>
+				</li>
+				<li>
+					<%= link_to "Privacy Policy",privacy_policy_path %>
+				</li>
+				<li>
+					<%= link_to "Terms Conditions",terms_conditions_path %>
+				</li>
+				<li>
+					<%= link_to "Contact Us",contact_us_path %>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="content">
+	<!--Breadcrumb Part Start-->
+	<div class="breadcrumb">
+		<%= link_to "Home",root_path %> » <%= link_to "Contact Us",contact_us_path %>
+	</div>
+	<!--Breadcrumb Part End-->
+	<h1>Contact Us</h1>
+	<!-- <h2>Our Location</h2>
+	<div class="contact-info">
+	<div class="content">
+	<div class="left">
+	<h4><b>Address:</b></h4>
+	<p>
+	Central Square, 22 Hoi Wing Road, Tuen Mun, New Delhi,
+	<br>
+	India. 3800004
+	</p>
+	</div>
+	<div class="right">
+	<h4><b>Telephone:</b></h4>
+	+91 9898989898
+	<br>
+	+91 8787878787
+	<br>
+	</div>
+	</div>
+	</div> -->
+	<h2>Contact Form</h2>
+	<div class="content">
+		<b>First Name:</b>
+		<br>
+		<input class="large-field" type="text" value="test" name="name">
+		<br>
+		<br>
+		<b>E-Mail Address:</b>
+		<br>
+		<input class="large-field" type="text" value="test@test.com" name="email">
+		<br>
+		<br>
+		<b>Mobile :</b>
+		<br>
+		<input class="large-field" type="text" value="0123456789" name="email">dd
+		<br>
+		<br>
+		<b>Message:</b>
+		<br>
+		<textarea style="width: 98%;" rows="10" cols="40" name="enquiry"></textarea>
+	</div>
+	<div class="buttons">
+		<div class="right">
+			<input type="submit" class="button" value="Send">
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,5 @@
+<%if @check==0 %>
+$("#search_users_div").html("<%= escape_javascript(render "view_searched_user") %>");
+<% else  %>
+$("#search_users_div").html("<%= escape_javascript(render "edit_searched_user") %>");
+<% end  %>

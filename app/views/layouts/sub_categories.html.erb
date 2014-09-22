@@ -1,0 +1,52 @@
+<div class="wrapper-box">
+	<div class="main-wrapper">
+		<!--Header Part Start-->
+		<!--Header Part End-->
+		<div id="container">
+			<div id="column-left">
+				<%= render 'layouts/left_column'%>
+
+			</div>
+			<!--Middle Part Start-->
+			<div id="content">
+				<!--Breadcrumb Part Start-->
+				<div class="breadcrumb">
+					<%= link_to "Home", root_path %>&raquo;
+					<%= link_to "Categories", {:controller => "application", :action => "store_categories"} %>
+				</div>
+				<!--Breadcrumb Part End-->
+				<h1><%= @selected_category.name %> </h1>
+				<hr/>
+				<br/>
+				<!--Product Grid Start-->
+				<div class="product-grid">
+
+					<% @category_sub_categories.each do |sub_category| %>
+					<div>
+						<% if File.exist?("app/assets/images/data/sub_categories/#{sub_category["id"]}") %>
+						<% selected_sub_category_image=get_sub_category_images(sub_category["id"]) %>
+						<%= link_to image_tag("data/sub_categories/#{sub_category["id"]}/#{selected_sub_category_image[0]}", :size => "200x150"), {:controller => "application", :action => "products", :sub_category_id => sub_category["id"]} %>
+
+						<% else %>
+						<%= link_to image_tag("/assets/logo.png", :size => "200x150"), {:controller => "application", :action => "products", :sub_category_id => sub_category["id"]} %>
+						<% end %>
+						<div class="name">
+							<b> <%= link_to sub_category["name"], {:controller => "application", :action => "products", :sub_category_id => sub_category["id"]} %></b>
+						</div>
+					</div>
+					<% end %>
+
+				</div>
+				<!--Product Grid End-->
+				<!--Pagination Part Start-->
+				<div class="flickr_pagination">
+					<%= will_paginate @category_sub_categories %>
+				</div>
+				<!--Pagination Part End-->
+				<!--Pagination Part End-->
+			</div>
+			<!--Middle Part End-->
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

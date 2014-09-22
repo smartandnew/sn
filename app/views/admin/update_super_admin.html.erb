@@ -1,0 +1,163 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @admin && @admin.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @admin.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @admin.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <style type="text/css">
+      #passwords_div {
+          display: none;
+      }
+
+      #update_info {
+          display: none;
+      }
+       <% if @view_super_admin_change_password_form %>
+          #passwords_div {
+              display: inline;
+          }
+
+          #update_info {
+              display: inline;
+          }
+
+          #info_div {
+              display: none;
+          }
+
+          #change_pass {
+              display: none;
+          }
+
+        <% end %>
+  </style>
+  <script type="text/javascript">
+      function show_password_form() {
+          var update_info_button = document.getElementById('update_info');
+          var change_pass_button = document.getElementById('change_pass');
+          var info_div = document.getElementById('info_div');
+          var pass_div = document.getElementById('passwords_div');
+          change_pass_button.style.display = 'none'
+          pass_div.style.display = 'inline';
+          update_info_button.style.display = 'inline'
+          info_div.style.display = 'none';
+      }
+      ;
+      function show_udpate_info_form() {
+          var update_info_button = document.getElementById('update_info');
+          var change_pass_button = document.getElementById('change_pass');
+          var info_div = document.getElementById('info_div');
+          var pass_div = document.getElementById('passwords_div');
+          change_pass_button.style.display = 'inline'
+          pass_div.style.display = 'none';
+          update_info_button.style.display = 'none'
+          info_div.style.display = 'inline';
+      }
+      ;
+  </script>
+  <div id="info_div">
+    <h1>Update Your info </h1>
+    <%= form_for @admin, url: {controller: "admin", action: "update_super_admin_info"} do |f| %>
+
+        <div class="content">
+          <table>
+            <tbody>
+            <tr>
+              <td><h3>User Name</h3></td>
+              <td> : <%= f.text_field :username %>  </td>
+            </tr>
+
+            <tr>
+              <td><h3> Current Password</h3></td>
+              <td> : <%= f.password_field :password %>
+              </td>
+            </tr>
+
+            <tr>
+              <td><h3>Email</h3></td>
+              <td> : <%= f.text_field :email %>
+              </td>
+            </tr>
+
+            <tr>
+              <td><h3>First Name</h3></td>
+              <td> : <%= f.text_field :first_name %>
+              </td>
+            </tr>
+
+            <tr>
+              <td><h3>Last Name</h3></td>
+              <td> : <%= f.text_field :last_name %>
+              </td>
+            </tr>
+
+            <tr>
+              <td><h3>Adress</h3></td>
+              <td> : <%= f.text_area :address, :cols => "5", :rows => "5" %>
+              </td>
+            </tr>
+
+            <tr>
+              <td><h3>Mobile</h3></td>
+              <td> : <%= f.number_field :mobile %>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td><br/><%= f.submit 'Update Admin', :class => "button" %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+  </div>
+  <br/>
+
+  <div id="passwords_div">
+
+    <h1>Reset your password </h1>
+    <%= form_for @admin_, url: {controller: "admin", action: "reset_super_admin_password"} do |f| %>
+
+        <div class="content">
+          <table>
+            <tbody>
+            <tr>
+              <td><h3> old Password</h3></td>
+              <td> : <%= f.password_field :password %>
+              </td>
+            </tr>
+            <tr>
+              <td><h3> New Password</h3></td>
+              <td> : <%= f.password_field :new_password %>
+              </td>
+            </tr>
+            <tr>
+              <td><h3>Confirm Password</h3></td>
+              <td> :  <%= f.password_field :password_confirmation %>
+              </td>
+
+            </tr>
+
+            <tr>
+              <td></td>
+              <td><br/><%= f.submit 'Reset Password', :class => "button" %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+  </div>
+  <input type="button" id="change_pass" value="Click to Change password" class="button" onclick="show_password_form() ">
+  <br/>
+  <input type="button" id="update_info" value="Click to Update info" class="button" onclick="show_udpate_info_form()">
+
+</center>

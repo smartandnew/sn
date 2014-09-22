@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  value: 1.5
+  date_released: 2014-07-14
+  expired_date: 2014-07-14
+  verify: false
+  valid: false
+
+two:
+  code: MyString
+  value: 1.5
+  date_released: 2014-07-14
+  expired_date: 2014-07-14
+  verify: false
+  valid: false

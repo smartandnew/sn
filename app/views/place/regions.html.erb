@@ -1,0 +1,57 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @selected_governorate && @selected_governorate.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_governorate.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_governorate.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1><%= @selected_governorate.name %> </h1>
+  <%= form_for @selected_governorate, url: {action: "update_governorate"} do |f| %>
+
+      <table>
+        <tr>
+          <td><h3>Governorate name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Country name</h3></td>
+          <td>
+            : <%= f.collection_select :country_id, Country.order(:name), :id, :name %>
+
+          </td>
+        </tr>
+      </table>
+
+      <%= f.submit "Update Governorate ", :class => "button" %>
+  <% end %>
+  <br/>
+  <% if @regions.count>0 %>
+      <h1> Regions of <%= @selected_governorate.name %> </h1>
+      <% @regions.each do |region| %>
+          <div class="backs">
+            <%= link_to "selected_region?region_id=#{region.id}", {:controller => "place", :action => "region", :region_id => region.id} do %>
+                <div class="button_bases b1_skewed_slide_in">
+                  <div><%= region.name %></div>
+                  <div></div>
+                  <div><%= region.name %></div>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+      <!--Pagination Part Start-->
+      <div class="flickr_pagination">
+        <%= will_paginate @regions %>
+      </div>
+      <!--Pagination Part End-->
+  <% else %>
+      <h1>No Regions for <%= @selected_governorate.name %> </h1>
+  <% end %>
+</center>

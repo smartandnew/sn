@@ -1,0 +1,33 @@
+<center>
+	<div id="fourth-box-content">
+		<% if @user.master_credit>=300 %>
+		<%= form_tag 'generate_code', :remote => true do -%>
+		Your_password: <%= password_field :user, :user_conf_pass_for_gen_code %>
+		<%= submit_tag 'Generate code', :class => 'button', data: {confirm: "Are you sure you want to generate a code ?"} %>
+		<% end -%>
+		<% end %>
+		<br/>
+		<br/>
+		<% if @codes && @codes.count>0 %>
+		<h1 id="box-header"> Unused Codes Details</h1>
+		<table id="fourth-box-table">
+			<tr>
+				<th>Code Value</th>
+				<th>Code</th>
+				<th>Generated Date</th>
+				<th>Expired Date</th>
+			</tr>
+			<% @codes.each do |code| %>
+			<tr>
+				<td><%= code.value %></td>
+				<td><%= code.code %></td>
+				<td><%= code.date_released %> </td>
+				<td><%= code.expired_date %> </td>
+			</tr>
+			<% end %>
+		</table>
+		<% else %>
+		<!-- <h1 id="box-header"> NO Codes </h1> -->
+		<% end %>
+	</div>
+</center>

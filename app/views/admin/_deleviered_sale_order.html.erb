@@ -1,0 +1,105 @@
+<% if @sales && @sales.count>0 %>
+    <% if @users_sales && @users_sales.count>0 %>
+        <table id="fourth-box-table">
+          <caption><h1>Users sales</h1></caption>
+          <tr>
+            <th>Name</th>
+            <th> Email</th>
+            <th> Mobile</th>
+            <th> Address</th>
+            <th> Date of order</th>
+            <th> Products</th>
+            <th> Total</th>
+            <th> Confirm</th>
+          </tr>
+          <% @users_sales.each do |sale| %>
+              <tr>
+                <% user_info=get_user_info_by_sale(sale) %>
+                <% if user_info %>
+                    <td><%= user_info.first_name %> <%= user_info.last_name %></td>
+                    <td><%= user_info.email %></td>
+                    <td><%= user_info.mobile %></td>
+                    <td><%= user_info.address1 %></td>
+                <% end %>
+                <td><%= sale.created_at %></td>
+
+                <td>
+                  <% products_sales=get_product_has_sale_from_sale(sale) %>
+                  <% if products_sales %>
+                      <table>
+                        <th>Name</th>
+                        <th>Sub Categore</th>
+                        <th> Quantity</th>
+                        <th> Price</th>
+                        <% products_sales.each do |pro_sale| %>
+                            <% product=get_product_by_product_sale(pro_sale) %>
+                            <tr>
+                              <td><%= product.name %></td>
+                              <td><%= product.sub_category.name %></td>
+                              <td><%= pro_sale.amount %></td>
+                              <td><%= pro_sale.price %></td>
+                            </tr>
+                        <% end %>
+                      </table>
+                  <% end %> </td>
+                <td><%= get_total_of_sale(sale) %></td>
+                <td> <%= link_to "Confirm Sale Order",
+                                 {:controller => "admin", :action => "confirm_products_order_deliverd", :sale_id => sale.id}, :remote => true,
+                                 :class => "button" %> </td>
+              </tr>
+          <% end %>
+        </table>
+        <br/>
+    <% end %>
+
+    <% if @customers_sales && @customers_sales.count>0 %>
+        <table id="fourth-box-table">
+          <caption><h1>Customers sales</h1></caption>
+          <tr>
+            <th>Name</th>
+            <th> Email</th>
+            <th> Mobile</th>
+            <th> Address</th>
+            <th> Date of order</th>
+            <th> Products</th>
+            <th> Total</th>
+            <th> Confirm</th>
+          </tr>
+          <% @customers_sales.each do |sale| %>
+              <tr>
+                <td><%= sale.customer.name %></td>
+                <td><%= sale.customer.email %></td>
+                <td><%= sale.customer.phone %></td>
+                <td><%= sale.customer.address %></td>
+                <td><%= sale.created_at %></td>
+
+                <td>
+                  <% products_sales=get_product_has_sale_from_sale(sale) %>
+                  <% if products_sales %>
+                      <table>
+                        <th>Name</th>
+                        <th>Sub Categore</th>
+                        <th> Quantity</th>
+                        <th> Price</th>
+                        <% products_sales.each do |pro_sale| %>
+                            <% product=get_product_by_product_sale(pro_sale) %>
+                            <tr>
+                              <td><%= product.name %></td>
+                              <td><%= product.sub_category.name %></td>
+                              <td><%= pro_sale.amount %></td>
+                              <td><%= pro_sale.price %></td>
+                            </tr>
+                        <% end %>
+                      </table>
+                  <% end %> </td>
+                <td><%= get_total_of_sale(sale) %></td>
+                <td> <%= link_to "Confirm Sale Order",
+                                 {:controller => "admin", :action => "confirm_products_order_deliverd", :sale_id => sale.id}, :remote => true,
+                                 :class => "button" %> </td>
+              </tr>
+          <% end %>
+        </table>
+    <% end %>
+<% else %>
+    <h3> No products orders for delivery </h3>
+<% end %>

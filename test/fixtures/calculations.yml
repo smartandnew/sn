@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start: 
+  max_out: 1
+  renew: 1
+  user_profit: 1.5
+  first_year: 1.5
+  minimum_product_price: 1.5
+
+two:
+  start: 
+  max_out: 1
+  renew: 1
+  user_profit: 1.5
+  first_year: 1.5
+  minimum_product_price: 1.5

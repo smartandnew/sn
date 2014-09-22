@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2014-07-14
+  value: 1.5
+  is_master: false
+  is_money: false
+
+two:
+  date: 2014-07-14
+  value: 1.5
+  is_master: false
+  is_money: false

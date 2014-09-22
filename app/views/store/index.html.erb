@@ -1,0 +1,45 @@
+<center>
+	<% flash.each do |key, value| %>
+	<% id= (key=="success") ? "success_messages" : "error_explanation" %>
+	<div id=<%= id %>>
+		<h2><%= value %></h2>
+	</div>
+	<% end %>
+</center>
+<h1>Store</h1>
+<div class="backs" >
+  <a href=<%= add_category_path %>>
+    <div class="button_bases b1_skewed_slide_in">
+      <div>Add category</div>
+      <div></div>
+      <div>Add category</div>
+    </div>
+  </a>
+</div>
+<div class="backs" >
+  <a href=<%= add_sub_category_path %>>
+    <div class="button_bases b1_skewed_slide_in">
+      <div>Add sub category</div>
+      <div></div>
+      <div>Add sub category</div>
+    </div>
+  </a>
+</div>
+<div class="backs" >
+  <a href=<%= add_product_path %>>
+    <div class="button_bases b1_skewed_slide_in">
+      <div>Add product</div>
+      <div></div>
+      <div>Add product</div>
+    </div>
+  </a>
+</div>
+<div class="backs" >
+  <a href=<%= admin_store_categories_path %>>
+    <div class="button_bases b1_skewed_slide_in">
+      <div>Edit Store</div>
+      <div></div>
+      <div>Edit Store</div>
+    </div>
+  </a>
+</div>

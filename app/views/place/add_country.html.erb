@@ -1,0 +1,19 @@
+<center>
+  <% if @country && @country.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @country.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @country.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Add Country</h1>
+  <%= form_for @country, url: {action: "create_country"} do |f| %>
+      <table>
+        <tr>
+          <td><h3> Country name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+          <td> &nbsp; &nbsp; <%= f.submit "Create Country", :class => "button" %></td>
+        </tr>
+      </table>
+  <% end %>
+</center>

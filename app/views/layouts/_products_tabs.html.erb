@@ -1,0 +1,207 @@
+<!-- Product Tab Start-->
+<section id="product-tab" class="product-tab">
+	<ul id="tabs" class="tabs">
+		<li>
+			<%= link_to "Latest","#tab-latest" %>
+		</li>
+		<li>
+			<%= link_to "Bestseller","#tab-bestseller" %>
+		</li>
+		<li>
+			<%= link_to "Special","#tab-special" %>
+		</li>
+	</ul>
+
+	<div id="tab-latest" class="tab_content">
+		<div class="box-product">
+			<div class="flexslider latest_carousel_tab">
+				<ul class="slides">
+					<% last_products=get_last_5_products %>
+					<% if last_products !=nil %>
+					<% last_products.each do |product| %>
+					<li>
+						<div class="slide-inner">
+							<div class="image">
+								<% if File.exist?("app/assets/images/data/products/#{product["id"]}") %>
+								<% selected_product_image=get_product_images(product["id"]) %>
+								<%= link_to image_tag("data/products/#{product["id"]}/#{selected_product_image[0]}", :alt => "#{product["name"]}"), {:controller => "application", :action => "product", :product_id => product["id"]} %>
+
+								<% else %>
+								<%= link_to image_tag("/assets/logo.png"), {:controller => "application", :action => "product", :product_id => product["id"]} %>
+								<% end %>
+							</div>
+							<div class="name">
+								<a href="product.html"><%= product["name"] %></a>
+							</div>
+							<% if product["offer"] && product["offer"]>0 %>
+							<% new_price=product["price"]- (product["price"]* (product["offer"] / 100)) %>
+							<div class="price">
+								<span class="price-old"><%= product["price"] %> $</span>
+								<span class="price-new"><%= new_price %> $</span>
+							</div>
+							<% else %>
+							<div class="price">
+								<%= product["price"] %> $
+							</div>
+							<% end %>
+							<div class="cart">
+								<%= form_tag 'add_to_cart', :remote => true do -%>
+								<%= hidden_field_tag "product_to_cart_id", product["id"] %>
+								<%= submit_tag 'Add To Cart', :class => 'button' %>
+								<% end -%>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</li>
+					<% end %>
+					<% end %>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="tab-bestseller" class="tab_content">
+		<div class="box-product">
+			<div class="flexslider bestseller_carousel_tab">
+				<ul class="slides">
+					<% best_seller_products=get_best_seller_products %>
+					<% if best_seller_products && !best_seller_products.empty? %>
+					<% best_seller_products.each do |product| %>
+					<li>
+						<div class="slide-inner">
+							<div class="image">
+								<% if File.exist?("app/assets/images/data/products/#{product.id}") %>
+								<% selected_product_image=get_product_images(product.id) %>
+								<%= link_to image_tag("data/products/#{product.id}/#{selected_product_image[0]}", :alt => "#{product.name}"), {:controller => "application", :action => "product", :product_id => product.id} %>
+
+								<% else %>
+								<%= link_to image_tag("/assets/logo.png"), {:controller => "application", :action => "product", :product_id => product.id} %>
+								<% end %>
+							</div>
+							<div class="name">
+								<a href="product.html"><%= product.name %></a>
+							</div>
+							<% if product.offer && product.offer>0 %>
+							<% new_price=product.price- (product.price* (product.offer / 100)) %>
+							<div class="price">
+								<span class="price-old"><%= product.price %> $</span>
+								<span class="price-new"><%= new_price %> $</span>
+							</div>
+							<% else %>
+							<div class="price">
+								<%= product.price %> $
+							</div>
+							<% end %>
+							<div class="cart">
+								<%= form_tag 'add_to_cart', :remote => true do -%>
+								<%= hidden_field_tag "product_to_cart_id", product.id %>
+								<%= submit_tag 'Add To Cart', :class => 'button' %>
+								<% end -%>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</li>
+					<% end %>
+					<% end %>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="tab-special" class="tab_content">
+		<div class="box-product">
+			<div class="flexslider special_carousel_tab">
+				<ul class="slides">
+					<% special_products=get_special_products %>
+					<% if special_products && !special_products.empty? %>
+					<% special_products.each do |product| %>
+					<li>
+						<div class="slide-inner">
+							<div class="image">
+								<% if File.exist?("app/assets/images/data/products/#{product.id}") %>
+								<% selected_product_image=get_product_images(product.id) %>
+								<%= link_to image_tag("data/products/#{product.id}/#{selected_product_image[0]}", :alt => "#{product.name}"), {:controller => "application", :action => "product", :product_id => product.id} %>
+
+								<% else %>
+								<%= link_to image_tag("/assets/logo.png"), {:controller => "application", :action => "product", :product_id => product.id} %>
+								<% end %>
+							</div>
+							<div class="name">
+								<a href="product.html"><%= product.name %></a>
+							</div>
+							<% if product.offer && product.offer>0 %>
+							<% new_price=product.price- (product.price* (product.offer / 100)) %>
+							<div class="price">
+								<span class="price-old"><%= product.price %> $</span>
+								<span class="price-new"><%= new_price %> $</span>
+							</div>
+							<% else %>
+							<div class="price">
+								<%= product.price %> $
+							</div>
+							<% end %>
+							<div class="cart">
+								<%= form_tag 'add_to_cart', :remote => true do -%>
+								<%= hidden_field_tag "product_to_cart_id", product.id %>
+								<%= submit_tag 'Add To Cart', :class => 'button' %>
+								<% end -%>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</li>
+					<% end -%>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</section>
+<script type="text/javascript">
+	( function() {
+			// store the slider in a local variable
+			var $window = $(window), flexslider;
+			// tiny helper function to add breakpoints
+			function getGridSize() {
+				return (window.innerWidth < 320) ? 1 : (window.innerWidth < 600) ? 2 : (window.innerWidth < 800) ? 3 : (window.innerWidth < 900) ? 4 : 5;
+			}
+
+			//        $window.load(function () {
+			$('#product-tab .featured_carousel_tab, #product-tab .latest_carousel_tab, #product-tab .bestseller_carousel_tab, #product-tab .special_carousel_tab').flexslider({
+				animation : "slide",
+				animationLoop : false,
+				slideshow : false,
+				itemWidth : 210,
+				minItems : getGridSize(), // use function to pull in initial value
+				maxItems : getGridSize(), // use function to pull in initial value
+				start : function() {
+					$("#product-tab .tab_content").addClass("deactive");
+					$("#product-tab .tab_content:first").removeClass("deactive");
+					//Show first tab content
+				}
+			});
+			//        });
+
+			//        $(document).ready(function () {
+			//Default Action
+			$("ul#tabs li:first").addClass("active").show();
+			//Activate first tab
+			//On Click Event
+			$("ul#tabs li").click(function() {
+				$("ul#tabs li").removeClass("active");
+				//Remove any "active" class
+				$(this).addClass("active");
+				//Add "active" class to selected tab
+				$("#product-tab .tab_content").hide();
+				var activeTab = $(this).find("a").attr("href");
+				//Find the rel attribute value to identify the active tab + content
+				$(activeTab).fadeIn();
+				//Fade in the active content
+				return false;
+			});
+			//        });
+		}()); 
+</script>
+<!-- Product Tab End-->

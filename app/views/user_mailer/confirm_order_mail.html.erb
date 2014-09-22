@@ -1,0 +1,22 @@
+<h1> <%= @greeting %> </h1>
+<table>
+	<tr>
+		<th>Product</th>
+		<th>Quantity</th>
+		<th>price</th>
+	</tr>
+	<% total=0%>
+	<% for index in 0...@product_sale.length%>
+	<% total+=((@product_sale.fetch(index)[:price].to_f)*(@product_sale.fetch(index)[:quantity].to_f))%>
+	<tr>
+		<td><%= @product_sale.fetch(index)[:prodduct_name]%> </td>
+		<td><%= @product_sale.fetch(index)[:quantity]%> </td>
+		<td><%= @product_sale.fetch(index)[:price]%> </td>
+	</tr>
+	<%end%>
+</table>
+<%if total!=0%>
+<h1>total cost:<%= total%></h1>
+<%else%>
+<h1>Sorry! the products is not avilable now </h1>
+<%end%>

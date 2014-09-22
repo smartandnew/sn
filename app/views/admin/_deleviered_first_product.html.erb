@@ -1,0 +1,34 @@
+<% if @completed_first_products && @completed_first_products.count>0 %>
+<table id="fourth-box-table">
+	<tr>
+		<th>User Name</th>
+		<th>E-mail</th>
+		<th>Address</th>
+		<th>Mobile</th>
+		<th>Product name</th>
+		<th>Sub Category</th>
+		<th>Date completed</th>
+		<th>Confirm</th>
+	</tr>
+	<% @completed_first_products.each do |first_product| %>
+	<% product=get_product_by_id(first_product.product_id) %>
+	<% user=get_user_by_first_product(first_product) %>
+	<% user_info=get_user_info_by_first_product(first_product) %>
+	<tr>
+		<td><%= user_info.first_name%> <%= user_info.last_name%></td>
+		<td><%= user_info.email %></td>
+		<td><%= user_info.address1 %></td>
+		<td><%= user_info.mobile %></td>
+		<td><%= product.name %></td>
+		<td><%= product.sub_category.name%></td>
+
+		<td><%= first_product.date_completed %></td>
+		<td> <%= link_to "Confirm Product Delivery",
+		{:controller => "admin", :action => "confirm_first_product_deliverd", :first_product_id => first_product.id}, :remote => true,
+		:class => "button" %> </td>
+	</tr>
+	<% end %>
+</table>
+<% else %>
+<h3> No products ready for delivery </h3>
+<% end %>

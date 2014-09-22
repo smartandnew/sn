@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parent: 1
+  left: 1
+  right: 1
+  virtual_right_count: 1
+  virtual_left_count: 1
+  total_left: 1
+  total_right: 
+  virtual_credit: 
+  total_cheque_count: 1
+  level: 1
+
+two:
+  parent: 1
+  left: 1
+  right: 1
+  virtual_right_count: 1
+  virtual_left_count: 1
+  total_left: 1
+  total_right: 
+  virtual_credit: 
+  total_cheque_count: 1
+  level: 1

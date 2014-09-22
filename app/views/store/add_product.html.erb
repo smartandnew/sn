@@ -1,0 +1,82 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @product && @product.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @product.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @product.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Add Product</h1>
+  <%= form_for @product, url: {action: "create_product"} do |f| %>
+      <table>
+        <tr>
+          <td><h3>Product name </h3></td>
+          <td>: <%= f.text_field :name %> </td>
+        </tr>
+        <tr>
+          <td><h3>Sub_category </h3></td>
+          <td> : <%= f.grouped_collection_select :sub_category_id, Category.order(:name),
+                                                 :sub_categories, :name, :id, :name %> </td>
+        </tr>
+        <tr>
+          <td><h3>Price </h3></td>
+          <td> :  <%= f.number_field :price, in: 1.0..1000000.0 %> </td>
+        </tr>
+        <tr>
+          <td><h3>Description </h3></td>
+          <td> : <%= f.text_area :description, :cols => "30", :rows => "5" %> </td>
+        </tr>
+        <tr>
+          <td><h3>Quantity </h3></td>
+          <td> : <%= f.number_field :quantity, in: 0.0..1000000.0 %> </td>
+        </tr>
+        <tr>
+          <td><h3>Real price </h3></td>
+          <td>: <%= f.number_field :real_price, in: 1.0..1000000.0 %> </td>
+        </tr>
+        <tr>
+          <td><h3>Offer </h3></td>
+          <td> : <%= f.number_field :offer, in: 1.0..50.0 %> </td>
+        </tr>
+        <tr>
+          <td><h3>Offer expired date</h3></td>
+          <td> : <%= f.date_field :offer_expired_date, :value => Time.now.strftime('%Y-%m-%d') %>  </td>
+        </tr>
+        <tr>
+          <td><h3>Is best seller </h3></td>
+          <td> : <%= f.check_box :is_best_seller %>  </td>
+        </tr>
+        <tr>
+          <td><h3>Is featured </h3></td>
+          <td> : <%= f.check_box :is_featured %>  </td>
+        </tr>
+        <tr>
+          <td><h3>Choose an image</h3></td>
+          <td>: <%= f.file_field :datafile1, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+        </tr>
+        <tr>
+          <td><h3>Choose an image</h3></td>
+          <td>
+            : <%= f.file_field :datafile2, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+        </tr>
+        <tr>
+          <td><h3>Choose an image</h3></td>
+          <td>
+            : <%= f.file_field :datafile3, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <br/> <%= f.submit "Create Product", :class => "button" %>
+        </tr>
+      </table>
+
+
+  <% end %>
+</center>

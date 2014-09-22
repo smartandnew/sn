@@ -1,0 +1,137 @@
+<div class="wrapper-box">
+	<div class="main-wrapper">
+		<!--Header Part Start-->
+
+		<!--Header Part End-->
+		<div id="container">
+			<div id="column-left">
+				<%= render 'layouts/left_column'%>
+			</div>
+			<!--Middle Part Start-->
+			<div id="content">
+
+				<div class="breadcrumb">
+					<%= link_to "Home", root_path %>&raquo;
+					<%= link_to "Categories", {:controller => "application", :action => "store_categories"} %>
+					&raquo;
+					<%= link_to @selected_product.sub_category.category.name, {:controller => "application", :action => "store_sub_categories", :category_id => @selected_product.sub_category.category.id} %>
+					&raquo;
+					<%= link_to @selected_product.sub_category.name, {:controller => "application", :action => "products", :sub_category_id => @selected_product.sub_category.id} %>
+				</div>
+				<h1><%= @selected_product.name %> </h1>
+				<hr/>
+				<br/>
+
+				<div class="product-info">
+					<div class="left">
+						<% if File.exist?("app/assets/images/data/products/#{@selected_product.id}") %>
+						<% selected_product_image=get_product_images(@selected_product.id) %>
+
+						<div class="image">
+							<a href=<%= "assetsdata/products/#{@selected_product.id}/#{selected_product_image[0]}" %> title="Canon EOS 5D"
+							class="cloud-zoom colorbox" id='zoom1' rel="adjustX: 0, adjustY:0, tint:'#000000',tintOpacity:0.2,
+							zoomWidth:360, position:'inside', showTitle:false"> <%= image_tag("data/products/#{@selected_product.id}/#{selected_product_image[0]}", :size => "400x300", :title => @selected_product.name) %> <span id="zoom-image"><i class="zoom_bttn"></i> Zoom</span></a>
+						</div>
+						<div class="image-additional">
+							<% for i in 1..selected_product_image.length-1 %>
+							<a href=<%= "assetsdata/products/#{@selected_product.id}/#{selected_product_image[i]}" %>
+							title="Canon EOS 5D" class="cloud-zoom-gallery"
+							rel="useZoom: 'zoom1', smallImage: <%= "assetsdata/products/#{@selected_product.id}/#{selected_product_image[0]}" %> "> <img src=<%= "assetsdata/products/#{@selected_product.id}/#{selected_product_image[i]}" %>
+							width="62" title="Canon EOS 5D" alt="Canon EOS 5D" /></a>
+							<% end %>
+						</div>
+						<% else %>
+						<%= link_to image_tag("/assets/logo.png", :size => "100x100", :title => "#{}"),
+						{:controller => "application", :action => "product", :product_id => @selected_product.id} %>
+						<% end %>
+
+					</div>
+					<div class="right">
+						<div class="description">
+							<span>Product  Category:</span>
+							<%= link_to @selected_product.sub_category.category.name, {:controller => "application", :action => "store_sub_categories", :category_id => @selected_product.sub_category.category.id} %>
+
+							<br/>
+
+							<div class="description">
+								<span>Product Sub Category:</span>
+								<%= link_to @selected_product.sub_category.name, {:controller => "application", :action => "products", :sub_category_id => @selected_product.sub_category.id} %>
+
+								<br/>
+								<span>Quantity:</span> <%= @selected_product.quantity %> items
+								<br/>
+
+								<% if @selected_product.offer && @selected_product.offer>0 %>
+								<span>Offer:</span> <%= @selected_product.offer %> %
+								<br/>
+								<% new_price=@selected_product.price- (@selected_product.price* (@selected_product.offer / 100)) %>
+								<span>Offer Expired at:</span> <%= @selected_product.offer_expired_date %>
+								<br/>
+
+								<div class="price">
+									Price: <span class="price-old"><%= @selected_product.price %></span>
+									<span class="price-new"><%= new_price %> $</span>
+									<br/>
+								</div>
+								<% else %>
+								<span>Offer:</span> No offer
+								<br/>
+
+								<div class="price">
+									Price: <span class="price-new"><%= @selected_product.price %> $</span>
+									<br/>
+								</div>
+								<% end %>
+
+								<div class="cart">
+									<div>
+										<%= form_tag  'add_to_cart',:remote=>true do-%>
+										<%= hidden_field_tag "product_to_cart_id", @selected_product.id %>
+										<%= submit_tag 'Add To Cart' ,:class=>'button'%>
+										<%end-%>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Description and Reviews Tab Start -->
+				<div id="tabs" class="htabs">
+					<a href="#tab-description">Description</a>
+				</div>
+
+				<div id="tab-description" class="tab-content">
+					<h2>Product Description</h2>
+
+					<p>
+						<strong><%= @selected_product.description %></strong>
+						<br>
+					</p>
+				</div>
+				<script>
+					$('#tabs a').tabs();
+					/*$(document).ready(function () {
+					 });*/
+				</script>
+
+				<script type="text/javascript">
+					( function() {
+					// store the slider in a local variable
+					var $window=$(window), flexslider;
+					// tiny helper function to add breakpoints
+					function getGridSize() {
+					return (window.innerWidth<320)?1:(window.innerWidth<600)?2:(window.innerWidth<800)?3:(window.innerWidth<900)?3:4;
+					}
+					$('#content #related_pro').flexslider({
+					animation:"slide",animationLoop:false,slideshow:false,itemWidth:210,minItems:getGridSize(),// use function to pull in initial value
+					maxItems:getGridSize() // use function to pull in initial value
+					});
+					/*$window.load(function () {
+					 });*/
+					}());
+				</script>
+				<!--Related Product End-->
+			</div>
+			<!--Middle Part End-->
+			<div class="clear"></div>
+		</div>

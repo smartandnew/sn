@@ -1,0 +1,44 @@
+<center>
+  <div id="sub_admins_div">
+    <% flash.each do |key, value| %>
+        <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+        <div id=<%= id %>>
+          <h2><%= value %></h2>
+        </div>
+    <% end %>
+    <% if @all_sub_admins && @all_sub_admins.count>0 %>
+        <h1>Sub admins </h1>
+        <% @all_sub_admins.each do |sub_admin| %>
+            <div class="backs">
+
+
+              <%= link_to "view_sub_admin?sub_admin_id=#{sub_admin.id}", {:controller => "admin", :action => "view_sub_admin", :sub_admin_id => sub_admin.id, :method => "post", :remote => true} do %>
+                  <div class="button_bases b1_skewed_slide_in">
+                    <div><%= sub_admin.username %></div>
+                    <div></div>
+                    <div><%= sub_admin.username %></div>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+        <!--Pagination Part Start-->
+        <div class="flickr_pagination">
+          <%= will_paginate @all_sub_admins %>
+        </div>
+        <!--Pagination Part End-->
+    <% else %>
+        <h1> No Sub admins on system </h1>
+
+        <div class="back">
+          <a href=<%= admin_signup_path %>>
+            <div class="button_base b_3d_double_roll">
+              <div>Create New Admin</div>
+              <div>Create New Admin</div>
+              <div>Create New Admin</div>
+              <div>Create New Admin</div>
+            </div>
+          </a>
+        </div>
+    <% end %>
+  </div>
+</center>

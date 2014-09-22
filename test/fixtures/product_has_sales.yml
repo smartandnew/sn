@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: 1
+  sale_id: 1
+  price: 1.5
+  real_price: 1.5
+  amount: 1
+
+two:
+  product_id: 1
+  sale_id: 1
+  price: 1.5
+  real_price: 1.5
+  amount: 1

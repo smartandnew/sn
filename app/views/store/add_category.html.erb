@@ -1,0 +1,41 @@
+<center>
+  <% if @category && @category.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @category.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @category.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Add category</h1>
+  <%= form_for @category, url: {action: "create_category"} do |f| %>
+      <% if @category.errors.full_messages.any? %>
+          <% @category.errors.full_messages.each do |error_message| %>
+              <%= error_message if @category.errors.full_messages.first == error_message %>
+          <% end %>
+      <% end %>
+      <table>
+        <tr>
+          <td><h3>Category name </h3></td>
+          <td> : <%= f.text_field :name %>
+          </td>
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td>Choose an image </h3></td>
+          <td>
+            : <%= f.file_field :category_image, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/PNG,image/GIF,image/JPEG,image/JPG' %> </td>
+        </tr>
+        <tr>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td> <%= f.submit "Create Category", :class => "button" %> </td>
+        </tr>
+      </table>
+
+
+  <% end %>
+</center>

@@ -1,0 +1,30 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <h1>Log in as admin</h1>
+  <%= form_for Admin.new, url: {action: "admin_login"} do |f| %>
+      <div class="content">
+        <table>
+          <tr>
+            <td><h3>Admin </h3></td>
+            <td> : <%= f.text_field :username %> </td>
+          </tr>
+          <tr>
+            <td><br/></td>
+          </tr>
+          <tr>
+            <td><h3>Password </h3></td>
+            <td>
+              :<%= f.password_field :password %>
+
+            </td>
+          </tr>
+        </table>
+        <%= f.submit "Log in", :class => "button" %>
+      </div>
+  <% end %>
+</center>

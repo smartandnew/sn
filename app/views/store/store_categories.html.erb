@@ -1,0 +1,28 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+</center>
+<h1>Store Categories </h1>
+
+<% @categories.each do |category| %>
+
+    <div class="backs">
+      <%= link_to "admin_store_sub_categories?category_id=#{category.id}", {:controller => "store", :action => "sub_categories", :category_id => category.id} do %>
+          <div class="button_bases b1_skewed_slide_in">
+            <div><%= category.name %></div>
+            <div></div>
+            <div><%= category.name %></div>
+          </div>
+      <% end %>
+    </div>
+
+<% end %>
+<!--Pagination Part Start-->
+<div class="flickr_pagination">
+  <%= will_paginate @categories %>
+</div>
+<!--Pagination Part End-->

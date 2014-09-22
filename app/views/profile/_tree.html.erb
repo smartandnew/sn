@@ -1,0 +1,80 @@
+	
+		<% width="#{@parent_user.username.mb_chars.length*15}px"%>
+		<div id="container_3dl_tree">
+		<dl class="list nigiri ">
+			<dt>
+				<div class="mandel">
+					<input type="checkbox" id="question1" name="q"  class="questions">
+					<div class="plus">
+						+
+						<label for="question1" class="question">
+					</div>
+
+					<%if @parent.left!=0%>
+					<%= link_to "#{@left_user.username}", {:controller => "profile", :action => "get_left",:remote=>true} %>
+					<%else%>
+					Empty
+					<%end%>
+					</label>
+					<div class="answers">
+						<%if @parent.left!=0%>
+						Name :<%= @left_user_info.first_name%> <%= @left_user_info.last_name%>
+						<br/>
+						Email :<%= @left_user_info.email%>
+						<%else%>
+						Empty
+						<%end%>
+					</div>
+				</div>
+			</dt>
+		</dl>
+
+		<dl class="list maki ">
+			<dt>
+				<div class="3afaf">
+					<input type="checkbox" id="question2" name="q" class="questions">
+					<div class="plus plus2">
+						+ <label for="question2" class="question">
+					</div>
+					<%= link_to "#{@parent_user.username}", {:controller => "profile", :action => "get_parent",:remote=>true} %>
+					</label>
+					<div class="answers2 answers">
+						Left count :<%= @parent.total_left%>
+						<br/>
+						Right count :<%= @parent.total_right%>
+						<br/>
+						Name :<%= @parent_user_info.first_name%> <%= @parent_user_info.last_name%>
+						<br/>
+						Email :<%= @parent_user_info.email%>
+
+					</div>
+				</div>
+			</dt>
+		</dl>
+
+		<dl class="list sashimi ">
+			<dt>
+				<div class="pokimon">
+					<input type="checkbox" id="question3" name="q" class="questions">
+					<div class="plus">
+						+ <label for="question3" class="question">
+					</div>
+					<%if @parent.right!=0%>
+					<%= link_to "#{@right_user.username}", {:controller => "profile", :action => "get_right",:remote=>true} %>
+					<%else%>
+					Empty
+					<%end%>
+					</label>
+					<div class="answers">
+						<%if @parent.right!=0%>
+						Name :<%= @right_user_info.first_name%> <%= @left_user_info.last_name%>
+						<br/>
+						Email :<%= @right_user_info.email%>
+						<%else%>
+						Empty
+						<%end%>
+					</div>
+				</div>
+			</dt>
+		</dl>
+</div>

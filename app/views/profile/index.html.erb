@@ -1,0 +1,42 @@
+<center>
+	<% flash.each do |key, value| %>
+	<% id= (key=="success")?"success_messages" : "error_explanation" %>
+	<div id=<%= id %>  >
+		<h2><%= value %></h2>
+	</div>
+	<% end %>
+
+<div id= "all">
+	<div id="container">		
+			<div id="first-block-box">
+				<%= render "user_master_credit"%>
+			</div>
+
+			<div id="second-block-box">
+				<div id="product-credit-box">
+					<h2 id="product-credit-header" class="shadowPlay tween-looper">Product Credit</h2>
+				</div>
+				<div id = "value-of-product-credit-box" class="shadowPlay tween-looper" >
+					<%= @user.product_credit %> &nbsp; LE
+				</div>
+			</div>
+		</div> 
+		<div id="third-block">
+			 <div id="jelndizar">
+				<div id="khokho"> 
+					<div id="tree">
+						<%= render "tree"%>
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div id="fourth-box">
+			<center>
+				<div id="user_generated_codes">
+					<%= render "user_generated_codes" %>
+				</div>
+			</center>
+		</div>
+	</div>
+</div>
+</center>

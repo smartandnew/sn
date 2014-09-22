@@ -1,0 +1,131 @@
+<header id="header">
+	<div class="htop">
+
+		<div class="links">
+			<% if user_is_signed_in? %>
+			<%= link_to "My Account", profile_path %>
+			<%= link_to "Sign out", signout_path, :method => "get" %>
+			<% elsif admin_is_signed_in? %>
+			<%= link_to "My Account", admin_index_path %>
+			<%= link_to "Sign out", admin_signout_path, :method => "get" %>
+			<% else %>
+			<%= link_to "Login", signin_path, :method => "get" %>
+			<%= link_to "Register", signUp_path, :method => "get" %>
+			<% end %>
+		</div>
+	</div>
+
+	<section class="hsecond">
+		<div id="logo">
+			<%= link_to image_tag("/assets/logo.png", :border => 0), root_path, {:title => "Cash shop"} %>
+		</div>
+		<!--Mini Shopping Cart Start-->
+
+		<div id="cart_code">
+			<%= render "layouts/cart"%>
+		</div>
+
+		<!--Mini Shopping Cart End-->
+
+		<div class="clear"></div>
+	</section>
+	<!--Mini Shopping Cart End-->
+	<!--Top Menu(Horizontal Categories) Start-->
+	<nav id="menu">
+		<ul>
+			<li class="home">
+				<%= link_to image_tag("/assets/home	.png", :border => 0), root_path, {:title => "Home"} %>
+			</li>
+			<li>
+			<li class="categories_hor">
+				<%= link_to "Store", {:controller => "application", :action => "store_categories"} %>
+
+				<div>
+					<%  @application_categories.each do |category| %>
+					<div class="column">
+						<b> <%= link_to category["name"], {:controller => "application", :action => "store_sub_categories", :category_id => category["id"]} %></b>
+
+						<div>
+							<ul>
+								<% sub_categories=get_sub_categories_by_category_id(category["id"]) %>
+								<% sub_categories.each do |sub_category| %>
+								<% count=get_products_count(sub_category["id"])  %>
+								<li>
+									<%= link_to sub_category["name"]+"(#{count})", {:controller => "application", :action => "products", :sub_category_id => sub_category["id"]} %>
+								</li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+
+					<% end %>
+				</div>
+			</li>
+
+			<!-- <li>
+			<a  href="#">Store</a>
+			</li> -->
+
+			<!-- <li>
+			<a>My Account</a>
+
+			<div>
+			<ul>
+			<li>
+			<a href="#">My Account</a>
+			</li>
+			<li>
+			<a href="#">Order History</a>
+			</li>
+
+			</ul>
+			</div>
+			</li> -->
+			<li>
+				<%= link_to "About Us",about_us_path %>
+
+				<!-- <div>
+				<ul>
+				<li>
+				<a href="a#">About Us</a>
+				</li>
+				<li>
+				<a href="#">Delivery Information</a>
+				</li>
+				<li>
+				<a href="#">Privacy Policy</a>
+				</li>
+				<li>
+				<a href="#">Elements</a>
+				</li>
+				</ul>
+				</div> -->
+			</li>
+
+			<li>
+				<%= link_to "Contact Us",contact_us_path %>
+			</li>
+			<% if (user_is_signed_in?)   %>
+			<li>
+				<a>MOre</a>
+
+				<div>
+					<ul>
+						<li>
+							<%= link_to "Edit profile", edit_profile_path ,:method=>"get"%>
+						</li>
+						<li>
+							<%= link_to "Change password", change_password_path ,:method=>"get"%>
+						</li>
+						<li>
+							<%= link_to "Expenses", expenses_path ,:method=>"get"%>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<% end %>
+		</ul>
+	</nav>
+	<!--Top Menu(Horizontal Categories) End-->
+</header>
+

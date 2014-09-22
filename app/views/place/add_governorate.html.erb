@@ -1,0 +1,37 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @governorate && @governorate.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @governorate.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @governorate.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Add Governorate</h1>
+  <%= form_for @governorate, url: {action: "create_governorate"} do |f| %>
+      <% if @governorate.errors.full_messages.any? %>
+          <% @governorate.errors.full_messages.each do |error_message| %>
+              <%= error_message if @governorate.errors.full_messages.first == error_message %>
+          <% end %>
+      <% end %>
+      <table>
+        <tr>
+          <td><h3> Name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+        </tr>
+        <tr>
+          <td><h3> Country </h3></td>
+          <td> : <%= f.collection_select :country_id, Country.order(:name), :id, :name %> </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td> : <%= f.submit "Create Governorate", :class => "button" %></td>
+        </tr>
+      </table>
+  <% end %>
+</center>

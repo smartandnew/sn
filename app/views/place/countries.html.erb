@@ -1,0 +1,30 @@
+<center>
+	<% flash.each do |key, value| %>
+	<% id= (key=="success") ? "success_messages" : "error_explanation" %>
+	<div id=<%= id %>>
+		<h2><%= value %></h2>
+	</div>
+	<% end %>
+</center>
+<h1>Countries </h1>
+
+<% @countries.each do |country| %>
+<div class="backs" >
+	<%= link_to "governorates?country_id=#{country.id}", {:controller => "place", :action => "governorates", :country_id => country.id } do %>
+	<div class="button_bases b1_skewed_slide_in">
+		<div>
+			<%= country.name %>
+		</div>
+		<div></div>
+		<div>
+			<%= country.name %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<!--Pagination Part Start-->
+<div class="flickr_pagination">
+	<%= will_paginate @countries %>
+</div>
+<!--Pagination Part End-->

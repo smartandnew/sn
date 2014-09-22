@@ -1,0 +1,41 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @selected_region && @selected_region.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_region.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_region.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1><%= @selected_region.name %></h1>
+  <%= form_for @selected_region, url: {action: "update_region"} do |f| %>
+      <% if @selected_region.errors.full_messages.any? %>
+          <% @selected_region.errors.full_messages.each do |error_message| %>
+              <%= error_message if @selected_region.errors.full_messages.first == error_message %>
+          <% end %>
+      <% end %>
+
+      <table>
+        <tr>
+          <td><h3>Region name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Governorate name </h3></td>
+          <td>
+            : <%= f.grouped_collection_select :governorate_id, Country.order(:name),
+                                              :governorates, :name, :id, :name %>
+
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <%= f.submit "Update region", :class => "button" %>
+  <% end %>
+</center>

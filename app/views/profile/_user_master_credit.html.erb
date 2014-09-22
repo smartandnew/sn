@@ -1,0 +1,17 @@
+<% if @user.master_credit>=0 %>
+    <div id="master-credit-box">
+      <h2 id="master-credit-header" class="shadowPlay tween-looper">Master Credit </h2>
+    </div>
+    <div id="value-of-master-credit-box" class="shadowPlay tween-looper">
+      <%= @user.master_credit %> &nbsp; LE
+    </div>
+<% elsif @user.master_credit<0 && is_first_product_completed? -%>
+    <h1> <%= @user.master_credit %> LE<br/><br/>
+      you need work<br/><br/>
+      to get money</h1>
+<% else -%>
+    <h1>You still need<br/><br/>
+      <%= -1 * @user.master_credit %> LE
+      <br/><br/>
+      to complete first product</h1>
+<% end %>

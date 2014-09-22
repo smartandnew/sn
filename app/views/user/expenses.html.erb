@@ -1,0 +1,155 @@
+<div id="expen-page"  >
+	<h1>Your Expenses</h1>
+
+	<center>
+		<% if @first_product_info %>
+		<div id="first-product-content">
+			<h1 id="box-header" > First product details :</h1>
+			<% if @product_images && @first_product %>
+			<%= image_tag("data/products/#{@first_product.id}/#{@product_images[0]}", :id=>"first-box-image") %>
+			<% else %>
+			<%= image_tag("/assets/logo.png", :id=>"first-box-image") %>
+			<% end %>
+			<table  id="first-box-table">
+				<% if @first_product %>
+				<tr>
+					<td><h3>Product name</h3></td>
+					<td>: <%= label :name, @first_product.name %> </td>
+				</tr>
+				<% end %>
+				<tr>
+					<td><h3>Price </h3></td>
+					<td> : <%= label :price, @first_product_info.price %></td>
+				</tr>
+				<tr>
+					<td><h3>Date of price </h3></td>
+					<td> :   <%= label :first_product, @first_product_info.date_of_price %></td>
+				</tr>
+				<tr>
+					<td><h3> Completed</td>
+					<td> :  <%= label :is_completed, @first_product_info.is_completed %></td>
+				</tr>
+				<% if @first_product_info.is_completed %>
+				<tr>
+					<td><h3>Date completed </h3></td>
+					<td> : <%= label :date_completed, @first_product_info.date_completed %></td>
+				</tr>
+				<tr>
+					<td><h3> Delivered </h3></td>
+					<td>: <%= label :is_delivered, @first_product_info.is_delivered %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+
+		<% else %>
+		<h3> No first product for user with id => <%= label :user_id, session[:user_id] %> </h3>
+		<% end %>
+	</center>
+
+	<div id = "content">
+
+		<div class = "left_col">
+			<% if @user_expenses_sales&&!@user_expenses_sales.empty? %>
+			<br/>
+			<h1 > Sales are :</h1>
+			<% @user_expenses_sales.each_with_index do |expense_sale, index| %>
+			<% @product_sale= get_product_sale_by_sale_id(expense_sale.sale_id) %>
+			<%if @product_sale %>
+			<% @product= get_product_by_id(@product_sale.product_id) %>
+			<% if @product %>
+			<% if File.exists?("app/assets/images/data/products/#{@product.id}") %>
+			<% @product_images=get_product_images(@product.id) %>
+			<% end %>
+			<% end %>
+			<%end%>
+			<% if index.even? %>
+			<% class_name="box1" %>
+			<% else %>
+			<% class_name="box2" %>
+			<% end %>
+			<div class = <%= class_name %> >
+				<% if @product %>
+				<% if @product_images %>
+				<%= image_tag("data/products/#{@product.id}/#{@product_images[0]}", :size=>"250x200") %>
+				<% else %>
+				<%= image_tag("/assets/logo.png", :size=>"250x200") %>
+				<% end %>
+				<center>
+					<table class="sales-table">
+						<tr>
+							<th>Product name</th>
+							<th>Product price</th>
+							<th>Date of sale</th>
+						</tr>
+						<tr>
+							<td><%= @product.name %></td>
+							<td><%= expense_sale.value %></td>
+							<td><%= expense_sale.date %></td>
+						</tr>
+
+					</table>
+				</center>
+				<% end %>
+			</div>
+			<% @product =nil %>
+			<% @product_images =nil %>
+			<% @product_sale=nil %>
+			<% end %>
+			<% else %>
+			<br/>
+			<h1> No sales </h1>
+			<% end %>
+		</div><!-- end left col -->
+
+		<div class = " right_col">
+
+			<div class = "first_box">
+				<center>
+					<% if @renew && @renew.count>0 %>
+					<h1> Renew Details</h1>
+					<table class="sales-table">
+						<tr>
+							<th>Renew Value</th>
+							<th>Renew Date</th>
+						</tr>
+						<% @renew.each do |renew| %>
+						<tr>
+							<td><%= renew.value %></td>
+							<td><%= renew.date %> </td>
+						</tr>
+						<% end %>
+					</table>
+					<% else %>
+					<h1 > NO Renew </h1>
+					<% end %>
+				</center>
+			</div>
+			<!-- end first box -->
+
+			<div class = "second_box">
+				<center>
+					<% if @codes && @codes.count>0 %>
+					<h1> Used Codes </h1>
+					<table  class="sales-table" >
+						<tr>
+							<th>Code Value</th>
+							<th>Generated Date</th>
+						</tr>
+						<% @codes.each do |code| %>
+						<tr>
+							<td><%= code.value %></td>
+							<td><%= code.date %> </td>
+						</tr>
+						<% end %>
+					</table>
+					<% else %>
+					<h1 > NO Codes </h1>
+					<% end %>
+				</center>
+			</div>
+		</div>
+	</div>
+
+</div>
+

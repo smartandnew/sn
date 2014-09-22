@@ -1,0 +1,93 @@
+<h1>Update Calculation</h1>
+<div align="center">
+	<%= form_for @site_calculations, url: {controller: "admin", action: "update_calculations"} do |f| %>
+
+      <% if @site_calculations && @site_calculations.errors.full_messages.any? %>
+          <div id="error_explanation">
+            <% @site_calculations.errors.full_messages.each do |error_message| %>
+                <h2><%= error_message if @site_calculations.errors.full_messages.first == error_message %></h2>
+            <% end %>
+          </div>
+      <% end %>
+	<div class="content">
+
+		<table >
+			<tbody>
+				<tr>
+					<td><h3> Max number of cheques</h3></td>
+					<td> :  <%= f.number_field :max_out %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>Code value </h3></td>
+					<td> : <%= f.number_field :code_value %> </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>Renew</h3></td>
+					<td> : <%= f.number_field :renew %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>Minimum product price </h3></td>
+					<td> : <%= f.number_field :minimum_product_price %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>Blanced nodes number </h3></td>
+					<td> : <%= f.number_field :blanced_nodes_number %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>User Profit </h3></td>
+					<td> : <%= f.number_field :user_profit %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>first year </h3></td>
+					<td> : <%= f.number_field :first_year %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><h3>Product credit after no of cheques</h3></td>
+					<td> : <%= f.number_field :number_of_product_credit_cheques_ %>  </td>
+				</tr>
+				<tr>
+					<td>
+					<br/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<%= f.submit 'Update Calculation', :class => "button" %>
+	</div>
+	<% end %>
+</div>

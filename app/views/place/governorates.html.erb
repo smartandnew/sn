@@ -1,0 +1,45 @@
+<center>
+  <% if @selected_country && @selected_country.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @selected_country.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @selected_country.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1><%= @selected_country.name %></h1>
+  <%= form_for @selected_country, url: {action: "update_country"} do |f| %>
+      <table>
+        <tr>
+          <td><h3> Country name </h3></td>
+          <td> : <%= f.text_field :name %> </td>
+          <td> &nbsp; &nbsp; <%= f.submit "Update Country", :class => "button" %></td>
+        </tr>
+      </table>
+
+  <% end %>
+
+  <br/>
+  <% if @governorates.count>0 %>
+      <h1> Governorates of  <%= @selected_country.name %>  </h1>
+      <% @governorates.each do |governorate| %>
+
+          <div class="backs">
+            <%= link_to "/regions?governorate_id=#{governorate.id}", {:controller => "place", :action => "regions", :governorate_id => governorate.id} do %>
+                <div class="button_bases b1_skewed_slide_in">
+                  <div><%= governorate.name %></div>
+                  <div></div>
+                  <div><%= governorate.name %></div>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+      <!--Pagination Part Start-->
+      <div class="flickr_pagination">
+        <%= will_paginate @governorates %>
+      </div>
+      <!--Pagination Part End-->
+  <% else %>
+      <h1>No Governorates for <%= @selected_country.name %> </h1>
+  <% end %>
+</center>
+

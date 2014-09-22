@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: 1.5
+  date_of_price: 2014-07-14
+  is_completed: false
+  date_completed: 2014-07-14
+  is_delivered: false
+
+two:
+  price: 1.5
+  date_of_price: 2014-07-14
+  is_completed: false
+  date_completed: 2014-07-14
+  is_delivered: false

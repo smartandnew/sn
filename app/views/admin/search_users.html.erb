@@ -1,0 +1,44 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <div id="search_users_div">
+    <h1>Enter a username to search for </h1>
+    <%= form_for @searched_user, url: {action: "search_users_by_username"} do |f| %>
+        <div class="content">
+          <b>Username </b> :
+          <%= f.text_field :username %>
+          <%= f.submit "search", :class => "button" %>
+        </div>
+    <% end %>
+    <% if @all_searched_users && @all_searched_users.count>0 %>
+        <br/>
+
+        <h1>Search Result : </h1>
+        <% @all_searched_users.each do |user| %>
+            <div class="backs">
+              <%= link_to "view_searched_user?searched_user_id=#{user.id}", {:controller => "admin", :action => "view_searched_user", :searched_user_id => user.id, :method => "post", :remote => true} do %>
+                  <div class="button_bases b1_skewed_slide_in">
+                    <div><%= user.username %></div>
+                    <div></div>
+                    <div><%= user.username %></div>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+        <!--Pagination Part Start-->
+        <div class="flickr_pagination">
+          <%= will_paginate @all_searched_users %>
+        </div>
+        <!--Pagination Part End-->
+    <% else %>
+        <br/>
+
+        <h1> No Users found </h1>
+    <% end %>
+  </div>
+</center>
+

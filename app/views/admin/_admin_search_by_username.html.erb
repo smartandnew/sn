@@ -1,0 +1,19 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <h1>Enter a username for admin to search for </h1>
+
+  <div>
+    <%= form_for @sub_admin, url: {action: "search_admins_by_username"}, :remote => true do |f| %>
+        <div class="content">
+          <b> <%= f.label :username %></b> :
+          <%= f.text_field :username %>
+          <%= f.submit "search", :class => "button" %>
+        </div>
+    <% end %>
+  </div>
+</center>

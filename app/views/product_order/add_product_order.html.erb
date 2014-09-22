@@ -1,0 +1,112 @@
+<center>
+	<% flash.each do |key, value| %>
+	<% id= (key=="success") ? "success_messages" : "error_explanation" %>
+	<div id=<%= id %>>
+		<h2><%= value %></h2>
+	</div>
+	<% end %>
+	<% if @customer_new && @customer_new.errors.full_messages.any? %>
+	<div id="error_explanation">
+		<% @customer_new.errors.full_messages.each do |error_message| %>
+		<h2><%= error_message if @customer_new.errors.full_messages.first == error_message %></h2>
+		<% end %>
+	</div>
+	<% end %>
+	<% if @customer_old && @customer_old.errors.full_messages.any? %>
+	<div id="error_explanation">
+		<% @customer_old.errors.full_messages.each do |error_message| %>
+		<h2><%= error_message if @customer_old.errors.full_messages.first == error_message %></h2>
+		<% end %>
+	</div>
+	<% end %>
+</center>
+<div class="wrapper-box">
+	<div class="main-wrapper">
+		<div id="container">
+			<!--Middle Part Start-->
+			<div id="content">
+				<!--Breadcrumb Part Start-->
+				<div class="breadcrumb">
+					<%= link_to "Home", root_path %>
+				</div>
+				<!--Breadcrumb Part End-->
+				<h1>Checkout</h1>
+
+				<div class="checkout">
+					<div class="checkout-content" style="display: block;">
+						<div class="left">
+							<h2>New Customer</h2>
+
+							<p>
+								Checkout Options:
+							</p>
+
+							<%= form_for @customer_new, url: {action: "create_product_order"} do |f| %>
+
+							<b>Name:</b>
+							<br>
+							<%= f.text_field :name %>
+							<br>
+							<br>
+							<b>Phone:</b>
+							<br>
+							<%= f.number_field :phone %>
+							<br>
+							<br>
+							<b>Address:</b>
+							<br>
+							<%= f.text_field :address %>
+							<br>
+							<br>
+							<b>Email:</b>
+							<br>
+							<%= f.text_field :email %>
+							<br>
+
+							<br>
+							<br>
+
+							<p>
+								By creating an account you will be able to shop faster, be up to date on an order's status, and keep
+								track
+								of the orders you have previously made.
+							</p>
+							<%= f.submit "Confirm Order", :class => "button" %>
+							<% end %>
+							<br>
+							<br>
+						</div>
+						<div class="right" id="login">
+							<h2>Returning Customer</h2>
+
+							<p>
+								I am a returning customer
+							</p>
+
+							<%= form_for @customer_old, url: {action: "create_product_order_old_customer"} do |f| %>
+							
+							<br>
+							<b>Phone:</b>
+							<br>
+							<%= f.number_field :phone %>
+							<br>
+							<br>
+							<b>Address:</b>
+							<br>
+							<%= f.text_field :address %>
+							<br>
+							<br>
+							<%= f.submit "Confirm Order", :class => "button" %>
+
+							<% end %>
+
+							<br>
+							<br>
+						</div>
+					</div>
+				</div>
+				<!--Middle Part End-->
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>

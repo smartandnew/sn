@@ -1,0 +1,53 @@
+<center>
+	<div class="wrapper-box">
+		<div class="main-wrapper">
+			<!--Header Part Start-->
+			<!--Header Part End-->
+
+			<!--Middle Part Start-->
+			<div id="content">
+
+				<h1>Select product </h1>
+
+				<!--Product Grid Start-->
+				<div class="product-grid">
+					<% sub=get_first_product_sub_category(@products)%>
+					<% sub.each do |s| %>
+					<p style="float: left">
+						<%= s.name%>
+					</p>
+					<hr/>
+					<br/>
+					<% pro_in_sub=get_first_product_in_sub_category(@products,s)%>
+					<%pro_in_sub.each do |product|%>
+					<% if product.quantity && product.quantity>0 %>
+					<div>
+						<% if File.exist?("app/assets/images/data/products/#{product.id}") %>
+						<% selected_product_image=get_product_images(product.id) %>
+						<%= image_tag("data/products/#{product.id}/#{selected_product_image[0]}", :size => "100x100") %>
+
+						<% else %>
+						<%= image_tag("/assets/logo.png", :size => "100x100") %>
+						<% end %>
+						<div class="name">
+							<b> <%= product.name %> </b>
+						</div>
+						<div class="price">
+							Price: <span class="price-new"><%= product.price %> $</span>
+							<br/>
+						</div>
+						<div class="cart">
+							<%= link_to " Select ", {:controller => "user", :action => "select_first_product", :product_id => product.id}, :remote => true, :class => "button" %>
+						</div>
+					</div> <%end%>
+					<%end%>
+					<%end%>
+				</div>
+				<!--Product Grid End-->
+			</div>
+			<!--Middle Part End-->
+			<div class="clear"></div>
+		</div>
+	</div>
+</center>
+

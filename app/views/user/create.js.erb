@@ -1,0 +1,5 @@
+<%if @check==true%>
+$("#sign_up").html("<%= escape_javascript(render "verify_email") %>");
+<%else%>
+$("#sign_up").html("<%= escape_javascript(render "new") %>");
+<%end%>

@@ -1,0 +1,77 @@
+<div class="wrapper-box">
+	<div class="main-wrapper">
+		<!--Header Part Start-->
+		<!--Header Part End-->
+		<div id="container">
+			<div id="column-left">
+				<%= render 'layouts/left_column'%>
+
+			</div>
+			<!--Middle Part Start-->
+			<div id="content">
+				<!--Breadcrumb Part Start-->
+				<div class="breadcrumb">
+					<%= link_to "Home", root_path %>&raquo;
+					<%= link_to "Categories", {:controller => "application", :action => "store_categories"} %> &raquo;
+					<%= link_to @selected_sub_category.category.name, {:controller => "application", :action => "store_sub_categories", :category_id => @selected_sub_category.category.id} %>
+				</div>
+				<!--Breadcrumb Part End-->
+				<h1><%= @selected_sub_category.name %> </h1>
+				<hr/>
+				<br/>
+
+				<!--Product Grid Start-->
+				<div class="product-grid">
+					<% @sub_categories_products.each do |product| %>
+					<div>
+						<% product =get_product_after_check_offer(product.id) %>
+						<% if File.exist?("app/assets/images/data/products/#{product.id}") %>
+						<% selected_product_image=get_product_images(product.id) %>
+						<%= link_to image_tag("data/products/#{product.id}/#{selected_product_image[0]}", :size => "100x100"), {:controller => "application", :action => "product", :product_id => product.id} %>
+
+						<% else %>
+						<%= link_to image_tag("/assets/logo.png", :size => "100x100"), {:controller => "application", :action => "product", :product_id => product.id} %>
+						<% end %>
+						<div class="name">
+							<b> <%= link_to product.name, {:controller => "application", :action => "product", :product_id => product.id} %></b>
+						</div>
+						<div class="name">
+							<b> ( <%= product.quantity %>)</b>
+						</div>
+						<% if product.offer &&product.offer>0 %>
+						<% new_price=product.price-(product.price* ( product.offer / 100)) %>
+						<div class="price">
+							<span class="price-old"><%= product.price %></span>
+							<span class="price-new"><%= new_price %> $</span>
+							<br/>
+						</div>
+						<% else %>
+						<div class="price">
+							<span class="price-new"><%= product.price %> $</span>
+							<br/>
+						</div>
+						<% end %>
+
+						<div class="cart">
+							<%= form_tag  'add_to_cart',:remote=>true do-%>
+							<%= hidden_field_tag "product_to_cart_id", product.id %>
+							<%= submit_tag 'Add To Cart' ,:class=>'button'%>
+							<%end-%>
+
+						</div>
+					</div>
+					<% end %>
+
+				</div>
+				<!--Product Grid End-->
+				<!--Pagination Part Start-->
+				<div class="flickr_pagination">
+					<%= will_paginate @sub_categories_products %>
+				</div>
+				<!--Pagination Part End-->
+			</div>
+			<!--Middle Part End-->
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,130 @@
+<center>
+  <% flash.each do |key, value| %>
+      <%= id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <% if @updated_user_info && @updated_user_info.errors.full_messages.any? %>
+      <div id="error_explanation">
+        <% @updated_user_info.errors.full_messages.each do |error_message| %>
+            <h2><%= error_message if @updated_user_info.errors.full_messages.first == error_message %></h2>
+        <% end %>
+      </div>
+  <% end %>
+  <h1>Edit your info</h1>
+  <%= form_for @updated_user_info, url: {action: "update_user_info"} do |f| %>
+      <table>
+        <tr>
+          <td><h3>First_name </h3></td>
+          <td> : <%= f.text_field :first_name %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Last name </h3></td>
+          <td> :<%= f.text_field :last_name %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Mobile </h3></td>
+          <td> : <%= f.number_field :mobile %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Land phone </h3></td>
+          <td> : <%= number_field @user_info, :land_phone %> </td>
+
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Address1 %></h3></td>
+          <td> :<%= f.text_area :address1 %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Address2 %></h3></td>
+          <td> :<%= f.text_area :address2 %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Postal code </h3></td>
+          <td> : <%= f.number_field :postal_code %> </td>
+        </tr>
+        <tr>
+          <td><h3>National id </h3></td>
+          <td> : <%= f.number_field :national_id %> </td>
+
+        </tr>
+        <tr>
+          <td><h3>Birthdate </h3></td>
+          <td> :<%= f.date_field :birthdate %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Gender </h3></td>
+          <td>Male :
+            <%= f.radio_button :gender, 'true', :checked => true %>: Female
+            :<%= f.radio_button :gender, 'false' %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+        </tr>
+        <tr>
+          <td><h3>Social status </h3></td>
+          <td> :   <%= f.collection_select :status_id, Status.order(:name), :id, :name, including_blank: true %> </td>
+        </tr>
+        <tr>
+          <td><h3>Country </h3></td>
+          <td>
+            : <%= f.select :country_id, options_for_select(@countries.collect { |country| [country.name.titleize, country.id] }, 1), {}, {id: 'countries_select'} %> </td>
+        </tr>
+        <tr>
+          <td><h3>Governorate </h3></td>
+          <td>
+            : <%= f.select :governorate_id, options_for_select(@governorates.collect { |governorate| [governorate.name.titleize, governorate.id] }, 0), {}, {id: 'governorates_select'} %> </td>
+        </tr>
+        <tr>
+          <td><h3>Region </h3></td>
+          <td>
+            : <%= f.select :region_id, options_for_select(@regions.collect { |region| [region.name.titleize, region.id] }, 0), {}, {id: 'regions_select'} %> </td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+          </td>
+          <td><%= f.submit "Update", :class => "button" %></td>
+        </tr>
+      </table>
+
+  <% end %>
+</center>

@@ -1,0 +1,55 @@
+<center>
+  <% flash.each do |key, value| %>
+      <% id= (key=="success") ? "success_messages" : "error_explanation" %>
+      <div id=<%= id %>>
+        <h2><%= value %></h2>
+      </div>
+  <% end %>
+  <h1>Log in</h1>
+  <%= form_for User.new, url: {action: "create"} do |f| %>
+      <div class="content">
+        <table>
+          <tr>
+            <td><h3>Username </h3></td>
+            <td> : <%= f.text_field :username %> </td>
+          </tr>
+          <tr>
+            <td><br/></td>
+          </tr>
+          <tr>
+            <td><h3>Password </h3></td>
+            <td>
+              :<%= f.password_field :password %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <%= f.submit "Log in", :class => "button" %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <br/>
+            </td>
+
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <span> New user ? <b><%= link_to "Sign up now!", signUp_path %></b></span>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <b><%= link_to "Forget Password ??", forgetPassword_path %></b>
+            </td>
+          </tr>
+        </table>
+
+  <% end %>
+
+  </div>
+</center>

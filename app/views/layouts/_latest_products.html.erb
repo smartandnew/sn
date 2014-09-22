@@ -1,0 +1,43 @@
+<% last_products=get_last_5_products %>
+<% if last_products && !last_products.empty? %>
+    <!--Latest Product Start-->
+    <div class="box">
+      <div class="box-heading">
+        Latest
+      </div>
+      <div class="box-content">
+        <div class="box-product">
+          <div class="flexslider">
+            <ul class="slides">
+              <% last_products.each do |product| %>
+                  <li>
+                    <div class="slide-inner">
+                      <div class="image">
+                        <% if File.exist?("app/assets/images/data/products/#{product["id"]}") %>
+                            <% selected_product_image=get_product_images(product["id"]) %>
+                            <%= link_to image_tag("data/products/#{product["id"]}/#{selected_product_image[0]}", :alt => "#{product["name"]}"), {:controller => "application", :action => "product", :product_id => product["id"]} %>
+
+                        <% else %>
+                            <%= link_to image_tag("/assets/logo.png"), {:controller => "application", :action => "product", :product_id => product["id"]} %>
+                        <% end %>
+                      </div>
+                      <div class="name"><a href="product.html"><%= product["name"] %></a></div>
+                      <% if product["offer"] && product["offer"]>0 %>
+                          <% new_price=product["price"]- (product["price"]* (product["offer"] / 100)) %>
+                          <div class="price"><span class="price-old"><%= product["price"] %> $</span>
+                            <span class="price-new"><%= new_price %> $</span></div>
+                      <% else %>
+                          <div class="price"><%= product["price"] %> $</div>
+                      <% end %>
+                      <div class="clear"></div>
+                    </div>
+                  </li>
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Latest Product end-->
+<% end %>
